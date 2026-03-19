@@ -43,7 +43,7 @@ local LFLAGS = flatten(LFLAGS)
 local ARCH = flatten(ARCH)
 local APPNAME = flatten(APPNAME)
 
-local PLATFORM = tup.getconfig("PLATFORM")
+local PLATFORM = "linux"
 if ARCH == "" then
   ARCH = tup.getconfig("ARCH")
 end
@@ -523,18 +523,20 @@ function package_linux(products, dep_products)
   local distro = string.gsub(f:read("*a"),"\n","")
   f:close()
 
+  local output_file = ""
   if ARCH == "all" then
-    outputs += PACKAGE .. version_separator .. VERSION .. "-" .. REVISION ..
-               arch_separator .. noarch .. suffix
+    output_file = PACKAGE .. version_separator .. VERSION .. "-" .. REVISION ..
+                  arch_separator .. noarch .. suffix
   else
-    outputs += PACKAGE .. version_separator .. VERSION .. "-" .. REVISION ..
-               arch_separator ..  ARCH .. suffix
+    output_file = PACKAGE .. version_separator .. VERSION .. "-" .. REVISION ..
+                  arch_separator ..  ARCH .. suffix
   end
+  outputs += "packages/" .. output_file
 
   tup.definerule{
     inputs = inputs,
     command = "^ PACKAGE %o^ " .. tup.getcwd() .. "/create-deb.sh " ..
-              VERSION .. " " .. REVISION .. " " .. PACKAGE .. " " .. " %o",
+              VERSION .. " " .. REVISION .. " " .. PACKAGE .. " %o",
     outputs = outputs
   }
 end
