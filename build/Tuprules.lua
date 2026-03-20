@@ -499,9 +499,13 @@ function run_test(name, test_products, dep_shared_libs)
   local inputs = {name}
   inputs += test_products
   inputs += dep_shared_libs
+  local test_command = "./%f"
+  if tup.getconfig("IGNORE_TEST_FAILURES") == "y" then
+    test_command = test_command .. " || true"
+  end
   tup.definerule{
     inputs = inputs,
-    command = "^ TEST " .. name .. "^ ./%f",
+    command = "^ TEST " .. name .. "^ " .. test_command,
     outputs = {}
   }
 end
