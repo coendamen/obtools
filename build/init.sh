@@ -7,6 +7,7 @@ ln -sf $BUILD_DIR/create-deb.sh
 ln -sf $BUILD_DIR/create-rpm.sh
 ln -sf $BUILD_DIR/create-nsis.sh
 ln -sf $BUILD_DIR/create-wasm.sh
+ln -sf $BUILD_DIR/generate-deb-no-lua.sh
 
 platform=linux
 
