@@ -680,6 +680,8 @@ public:
   // reason code if not
   int post(const URL& url, const string& request_body, string& response_body);
 
+  int post(const URL& url, const string& request_body, string& response_body, const string& content_type);
+
   //------------------------------------------------------------------------
   // Simple PUT operation on a URL
   // Returns result code, fills in response_body if provided,
